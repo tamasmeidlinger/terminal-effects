@@ -2,7 +2,8 @@
 
 import argparse
 
-from ocsi_head import main as run_ocsi_head
+from effects.ocsi_head import main as run_ocsi_head
+from effects.ocsi_body import main as run_ocsi_body
 
 
 def main() -> None:
@@ -12,10 +13,17 @@ def main() -> None:
         action="store_true",
         help="run the OCSI head laser effect",
     )
+    parser.add_argument(
+        "-ocsibody",
+        action="store_true",
+        help="run the OCSI body burn effect",
+    )
     args = parser.parse_args()
 
     if args.ocsihead:
         run_ocsi_head()
+    elif args.ocsibody:
+        run_ocsi_body()
     else:
         parser.print_help()
 

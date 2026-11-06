@@ -9,7 +9,7 @@ from terminaltexteffects.engine.terminal import TerminalConfig
 
 
 def main() -> None:
-    art = Path(__file__).with_name("ocsi-head.txt").read_text(encoding="utf-8").rstrip("\n")
+    art = (Path(__file__).parent.parent / "ascii_arts" / "ocsi-head.txt").read_text(encoding="utf-8").rstrip("\n")
 
     config = LaserEtchConfig._build_config()
     config.etch_speed = 4
