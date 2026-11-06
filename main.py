@@ -20,7 +20,7 @@ def main() -> None:
     )
     args = parser.parse_args()
 
-    if args.ocsihead:
+    if args.ocsihead or not args.ocsibody:
         run_ocsi_head()
     elif args.ocsibody:
         run_ocsi_body()
