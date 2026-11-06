@@ -2,6 +2,7 @@
 
 import os
 import subprocess
+import sys
 from pathlib import Path
 
 from terminaltexteffects.effects.effect_fireworks import Fireworks, FireworksConfig
@@ -25,15 +26,23 @@ def main() -> None:
     config.final_gradient_direction = Gradient.Direction.VERTICAL
     terminal_config = TerminalConfig._build_config()
     terminal_config.frame_rate = 150
-    terminal_config.anchor_canvas = "s"
+    terminal_config.canvas_width = 0
+    terminal_config.canvas_height = 0
+    terminal_config.anchor_canvas = "sw"
     terminal_config.anchor_text = "c"
     effect = Fireworks(art, effect_config=config, terminal_config=terminal_config)
 
     clear_command = ["cmd", "/c", "cls"] if os.name == "nt" else ["clear"]
     subprocess.run(clear_command, check=False)
-    with effect.terminal_output() as terminal:
+    with effect.terminal_output(end_symbol="") as terminal:
+        terminal_height = terminal.visible_top
         for frame in effect:
             terminal.print(frame)
+
+    art_height = len(art.splitlines())
+    prompt_row = min(terminal_height, (terminal_height - art_height) // 2 + art_height + 5)
+    sys.stdout.write(f"\x1b[{max(1, prompt_row)};1H")
+    sys.stdout.flush()
 
 
 if __name__ == "__main__":
