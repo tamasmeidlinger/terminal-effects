@@ -12,41 +12,41 @@ from effects.muci_ocsi_head import main as run_muci_ocsi_head
 def main() -> None:
     parser = argparse.ArgumentParser(description="Run a terminal text effect.")
     parser.add_argument(
-        "-ocsihead",
+        "-oh",
         action="store_true",
         help="run the OCSI head laser effect",
     )
     parser.add_argument(
-        "-ocsibody",
+        "-ob",
         action="store_true",
         help="run the OCSI body burn effect",
     )
     parser.add_argument(
-        "-mucihead",
+        "-mh",
         action="store_true",
         help="run the MUCI head laser effect",
     )
     parser.add_argument(
-        "-mucibody",
+        "-mb",
         action="store_true",
         help="run the MUCI body burn effect",
     )
     parser.add_argument(
-        "-muciocsihead",
+        "-moh",
         action="store_true",
         help="run the MUCI-OCSI head fireworks effect",
     )
     args = parser.parse_args()
 
-    if args.muciocsihead:
+    if args.moh:
         run_muci_ocsi_head()
-    elif args.mucihead:
+    elif args.mh:
         run_muci_head()
-    elif args.mucibody:
+    elif args.mb:
         run_muci_body()
-    elif args.ocsihead or not args.ocsibody:
+    elif args.oh or not args.ob:
         run_ocsi_head()
-    elif args.ocsibody:
+    elif args.ob:
         run_ocsi_body()
     else:
         parser.print_help()
